@@ -13,4 +13,4 @@ jobs:
       - name: Install Dependencies
         run: npm --prefix './02 Starting Project' ci
       - name: Run Tests
-        run: npm test
+        run: npm --prefix './02 Starting Project' test
