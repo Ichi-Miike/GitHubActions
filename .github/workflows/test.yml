@@ -10,9 +10,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Move to project folder
-        run: cd '02 Starting Project'
       - name: Install Dependencies
-        run: npm ci
+        run: npm --prefix './02 Starting Project' ci
       - name: Run Tests
         run: npm test
