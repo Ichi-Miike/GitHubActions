@@ -5,7 +5,7 @@ on:
       - main
 
 env:
-  NPM_PREFIX: "01 Starting Folder"
+  NPM_PREFIX: "./01 Starting Folder"
 
 jobs:
   test:
