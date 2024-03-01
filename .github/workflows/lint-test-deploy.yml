@@ -36,7 +36,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v4
         with:
-          mnode-version: 20
+          node-version: 20
       - name: Install dependencies
         run: npm --prefix "./assignments/assignment-01" ci
       - name: Build solution
