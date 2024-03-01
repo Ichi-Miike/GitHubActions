@@ -1,0 +1,26 @@
+name: Events Demo 1
+on:
+  workflow_dispatch:
+  pull_request:
+    types: closed
+
+env:
+  NPM_PREFIX: "./02 Starting Project"
+
+jobs:
+  Dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: output event data
+        run: echo "${{toJSON( github.event )}}"
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: npm --prefix $NPM_PREFIX ci
+      - name: Test Code
+        run: npm --prefix $NPM_PREFIX run test
+      - name: Build Code
+        run: npm --prefix $NPM_PREFIX run build
+      - name: Deploy Project
+        run: echo "Deploying...."
+      

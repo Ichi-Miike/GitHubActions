@@ -1,0 +1,37 @@
+name: Deploy website
+on:
+  push:
+    branches:
+      - main
+
+env:
+  NPM_PREFIX: "./01 Starting Folder"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm --prefix $NPM_PREFIX ci
+      - name: Lint code
+        run: npm run --prefix $NPM_PREFIX lint
+      - name: Test code
+        run: npm run --prefix $NPM_PREFIX test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm --prefix $NPM_PREFIX ci
+      - name: Build website
+        run: npm run --prefix $NPM_PREFIX build
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        run: echo "Deploying..."

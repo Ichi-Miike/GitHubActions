@@ -1,0 +1,49 @@
+name: Lint, Test & Deploy
+on: push
+
+env:
+  NPM_PREFIX: "./assignments/assignment-01"
+
+jobs:
+  Lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Dependencies
+        run: npm --prefix $NPM_PREFIX ci
+      - name: Run Lint Script
+        run: npm --prefix $NPM_PREFIX run lint
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout code
+          uses: actions/checkout@v3
+        - name: Install Node
+          uses: actions/setup-node@v4
+          with:
+            node-version: 20
+        - name: Install Dependencies
+          run: npm --prefix $NPM_PREFIX ci
+        - name: Run Tests
+          run: npm --prefix $NPM_PREFIX run test
+  Deploy:
+    runs-on: unbuntu-latest
+    needs: [Lint, Test]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm --prefix $NPM_PREFIX ci
+      - name: Build solution
+        run: npm --prefix $NPM_PREFIX run build
+      - name: Deploy to server
+        run: echo "Deploying to some server or other"
